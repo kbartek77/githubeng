@@ -19,7 +19,9 @@ public class GitHubService {
     public GitHubRepo showReposDetails(String owner, String repo) {
         RepoGitHub repository = gitHubClient.getUserOneRepo(owner, repo);
         List<BranchGitHub> branches = gitHubClient.getAllBranches(owner, repo);
+        List<RepoGitHub> userRepos = gitHubClient.showUserRepos(owner);
         GitHubRepo gitHubRepo = GitHubRepo.builder()
+                .repos(gitHubMapper.toRepoAppList(userRepos))
                 .details(gitHubMapper.toRepoApp(repository))
                 .branches(gitHubMapper.toBranchAppList(branches))
                 .build();
