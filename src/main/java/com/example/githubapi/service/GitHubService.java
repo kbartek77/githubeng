@@ -1,10 +1,7 @@
 package com.example.githubapi.service;
 
-import com.example.githubapi.Exceptions.UserNotFoundExceptions;
 import com.example.githubapi.client.GitHubClient;
 import com.example.githubapi.mapper.GitHubMapper;
-import com.example.githubapi.model.AppDto.BranchApp;
-import com.example.githubapi.model.AppDto.RepoApp;
 import com.example.githubapi.model.Entity.GitHubRepo;
 import com.example.githubapi.model.GitHubDto.BranchGitHub;
 import com.example.githubapi.model.GitHubDto.RepoGitHub;

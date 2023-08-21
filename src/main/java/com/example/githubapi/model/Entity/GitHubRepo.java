@@ -10,6 +10,7 @@ import java.util.List;
 @Data
 @Builder
 public class GitHubRepo {
+//    private List<RepoApp> repos;
     private RepoApp details;
     private List<BranchApp> branches;
 }

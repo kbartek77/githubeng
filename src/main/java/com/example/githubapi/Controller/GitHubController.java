@@ -1,6 +1,5 @@
 package com.example.githubapi.Controller;
 
-import com.example.githubapi.Config.ExceptionMessage;
 import com.example.githubapi.model.Entity.GitHubRepo;
 import com.example.githubapi.service.GitHubService;
 import io.swagger.v3.oas.annotations.Operation;
