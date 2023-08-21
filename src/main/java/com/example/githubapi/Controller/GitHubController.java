@@ -28,8 +28,8 @@ public class GitHubController {
             @ApiResponse(responseCode = "406", description = "Not Acceptable type", content = @Content)
     })
     @GetMapping("/repos/{owner}/{repo}")
-    public ResponseEntity<GitHubRepo> getReposDetails(@PathVariable String owner, @PathVariable String repo) {
+    public GitHubRepo getReposDetails(@PathVariable String owner, @PathVariable String repo) {
         GitHubRepo gitHubRepo = gitHubService.showReposDetails(owner, repo);
-        return ResponseEntity.ok(gitHubRepo);
+        return gitHubRepo;
     }
 }
