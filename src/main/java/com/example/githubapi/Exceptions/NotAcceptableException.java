@@ -4,6 +4,6 @@ import org.springframework.http.HttpStatus;
 
 public class NotAcceptableException extends GitHubExceptions{
     public NotAcceptableException(String message){
-        super(message, HttpStatus.NOT_FOUND);
+        super(message, HttpStatus.NOT_ACCEPTABLE);
     }
 }
