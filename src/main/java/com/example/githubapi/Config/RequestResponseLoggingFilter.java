@@ -9,33 +9,36 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+
 @Component
 @Order(1)
-public class RequestResponseLoggingFilter extends GenericFilterBean {
-        @Override
-        public void doFilter(
-                ServletRequest request,
-                ServletResponse response,
-                FilterChain chain) throws IOException, ServletException {
+public class RequestResponseLoggingFilter extends OncePerRequestFilter {
+    @Override
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain chain) throws ServletException, IOException {
 
-            HttpServletRequest req = (HttpServletRequest) request;
-            HttpServletResponse res = (HttpServletResponse) response;
+        if (!"application/json".equals(request.getHeader("Accept"))) {
+            response.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
+            response.getWriter().write("{\"status\": 406, \"message\": \"Not acceptable\"}");
+            return;
+        }
 
-            if (!"application/json".equals(req.getHeader("Accept"))) {
-                res.setStatus(HttpServletResponse.SC_NOT_ACCEPTABLE);
-                res.getWriter().write("{\"status\": 406, \"message\": \"Not acceptable\"}");
-                return;
-            }
+        chain.doFilter(request, response);
 
-            chain.doFilter(request, response);
-
-            if (res.getStatus() == HttpServletResponse.SC_NOT_FOUND) {
-                res.setStatus(HttpServletResponse.SC_NOT_FOUND);
-                res.getWriter().write("{\"status\": 404, \"message\": \"Resource not found\"}");
-                return;
-            }
+        if (response.getStatus() == HttpServletResponse.SC_NOT_FOUND) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.getWriter().write("{\"status\": 404, \"message\": \"Resource not found\"}");
+            return;
         }
     }
+}
+
+
+
+
 

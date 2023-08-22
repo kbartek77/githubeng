@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class GitHubController {
+
     private final GitHubService gitHubService;
     @Operation(summary = "Get repo data from user", tags = "Repo")
     @ApiResponses(value = {
